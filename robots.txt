@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://moblet-hamamat.com/sitemap.xml
+
