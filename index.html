@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مبلط حمامات بالرياض | تركيب سيراميك ورخام وجرانيت</title>
+    
+    <link rel="icon" type="image/png" href="https://imgg.io/images/2026/03/04/ab8cf251dfb9d7de52b58890415dbb7c.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        :root { --main-color: #a8806a; }
+        body { font-family: 'Cairo', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
+        
+        /* شاشة التحميل المطورة - بدون إطار وبأيقونة أكبر */
+        #loader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: white; z-index: 10000; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+        }
+
+        /* الهيدر */
+        header { transition: all 0.4s ease; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(5px); }
+        header.scrolled { padding: 8px 0; background: rgba(255, 255, 255, 0.85); }
+
+        /* القائمة الجانبية */
+        #sidebar {
+            position: fixed; top: 0; left: -100%; width: 280px; height: 100%;
+            background: white; z-index: 10001; transition: 0.4s;
+            box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+        }
+        #sidebar.active { left: 0; }
+        #overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 10000; display: none;
+        }
+
+        /* البطاقات */
+        .service-card { transition: all 0.3s ease; border: 1px solid #eee; }
+        .service-card:hover { 
+            transform: translateY(-8px); 
+            border-color: var(--main-color);
+            box-shadow: 0 12px 25px rgba(168, 128, 106, 0.12);
+        }
+        .icon-box { 
+            width: 65px; height: 65px; display: flex; align-items: center; 
+            justify-content: center; background: var(--main-color); 
+            color: white; border-radius: 50%; margin: 0 auto 15px;
+            transition: 0.5s;
+        }
+        .service-card:hover .icon-box { transform: scale(1.1) rotate(10deg); }
+
+        /* البار السفلي */
+        .bottom-nav {
+            position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%);
+            width: 92%; max-width: 450px; background: white;
+            border: 1px solid var(--main-color); border-radius: 50px;
+            display: flex; justify-content: space-around; padding: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1); z-index: 998;
+        }
+
+        /* واتساب عائم صغير على اليسار */
+        .whatsapp-float {
+            position: fixed; bottom: 90px; left: 20px;
+            width: 50px; height: 50px; background: #25d366;
+            color: white; border-radius: 50%; display: flex;
+            align-items: center; justify-content: center;
+            font-size: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 999; animation: bounce 2s infinite;
+        }
+
+        /* توقيع إسلام الشيخ */
+        .designer-tag {
+            border: 1.5px solid #d4af37; border-radius: 30px; padding: 4px 18px;
+            display: inline-block; font-weight: bold; color: #333;
+            background: linear-gradient(145deg, #ffffff, #f9f9f9);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <div id="loader">
+        <div class="text-center">
+            <img src="https://imgg.io/images/2026/03/04/ab8cf251dfb9d7de52b58890415dbb7c.png" class="w-36 mb-4 mx-auto animate__animated animate__pulse animate__infinite" alt="Logo">
+            <p class="text-gray-500 font-semibold">جاري تحميل الموقع ...</p>
+        </div>
+        <div class="absolute bottom-8">
+            <a href="https://wa.me/966547194788" target="_blank" class="designer-tag text-xs">
+                👑 تم التصميم بواسطة المهندس/ إسلام الشيخ 👑
+            </a>
+        </div>
+    </div>
+
+    <div id="overlay" onclick="toggleMenu()"></div>
+    <div id="sidebar" class="p-8">
+        <div class="flex justify-between items-center mb-10">
+            <h3 class="font-bold text-xl text-[#a8806a]">القائمة</h3>
+            <i class="fas fa-times text-2xl cursor-pointer" onclick="toggleMenu()"></i>
+        </div>
+        <nav class="flex flex-col space-y-6 text-lg font-bold">
+            <a href="#hero" onclick="toggleMenu()" class="hover:text-[#a8806a]">الرئيسية</a>
+            <a href="#services" onclick="toggleMenu()" class="hover:text-[#a8806a]">خدماتنا</a>
+            <a href="#why-us" onclick="toggleMenu()" class="hover:text-[#a8806a]">لماذا تختارنا</a>
+            <a href="#contact" onclick="toggleMenu()" class="hover:text-[#a8806a]">تواصل معنا</a>
+        </nav>
+    </div>
+
+    <header class="fixed top-0 w-full z-50 shadow-sm px-6 py-4 flex justify-between items-center">
+        <div>
+            <a href="tel:0546562621" class="w-9 h-9 flex items-center justify-center rounded-full bg-[#a8806a] text-white shadow-md">
+                <i class="fas fa-phone-alt"></i>
+            </a>
+        </div>
+        <div class="text-center">
+            <img src="https://imgg.io/images/2026/03/04/ab8cf251dfb9d7de52b58890415dbb7c.png" 
+                 class="h-12 mx-auto animate__animated animate__fadeIn" alt="Logo">
+        </div>
+        <div class="text-xl text-[#a8806a] cursor-pointer" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <section id="hero" class="pt-32 pb-12 px-6 text-center bg-white">
+        <h1 class="text-2xl md:text-3xl font-black mb-3 text-gray-800 leading-tight">مبلط حمامات الرياض الممتاز</h1>
+        <p class="text-gray-500 text-sm md:text-base max-w-lg mx-auto leading-relaxed">
+            أفضل خدمات تركيب البلاط والسيراميك والرخام والجرانيت مع عزل الأرضيات وضمان الجودة وسرعة الإنجاز.
+        </p>
+    </section>
+
+    <section id="services" class="py-12 px-4 container mx-auto">
+        <h2 class="text-xl font-bold text-center mb-10" style="color: var(--main-color);">خدماتنا الاحترافية</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div class="service-card bg-white p-5 rounded-2xl text-center">
+                <div class="icon-box"><i class="fas fa-bath text-xl"></i></div>
+                <h3 class="font-bold text-md mb-2">ترميم حمامات</h3>
+                <p class="text-xs text-gray-500 leading-relaxed">نحن خبراء في تجديد الحمامات القديمة وتحويلها إلى تحف فنية عصرية. تشمل خدماتنا إزالة البلاط القديم، معالجة الرطوبة، وعزل الأرضيات بأجود المواد لضمان استدامة منزلك.</p>
+            </div>
+            <div class="service-card bg-white p-5 rounded-2xl text-center">
+                <div class="icon-box"><i class="fas fa-layer-group text-xl"></i></div>
+                <h3 class="font-bold text-md mb-2">تركيب أسطح</h3>
+                <p class="text-xs text-gray-500 leading-relaxed">تخصصنا في تركيب بلاط الأسطح بكفاءة عالية، مع التركيز على الميول الصحيحة لتصريف المياه ومنع التراكمات التي تسبب مشاكل إنشائية وتسربات مستقبلاً.</p>
+            </div>
+            <div class="service-card bg-white p-5 rounded-2xl text-center">
+                <div class="icon-box"><i class="fas fa-tree text-xl"></i></div>
+                <h3 class="font-bold text-md mb-2">تركيب احواش</h3>
+                <p class="text-xs text-gray-500 leading-relaxed">نمنح حوش منزلك إطلالة ملكية بتركيب أفخم أنواع بلاط الأحواش والرخام الخارجي الذي يتحمل الأوزان الثقيلة والحرارة العالية بدقة متناهية.</p>
+            </div>
+            <div class="service-card bg-white p-5 rounded-2xl text-center">
+                <div class="icon-box"><i class="fas fa-couch text-xl"></i></div>
+                <h3 class="font-bold text-md mb-2">تركيب شغل داخلي</h3>
+                <p class="text-xs text-gray-500 leading-relaxed">تركيب السيراميك للغرف والصالات والممرات بدقة متناهية، مع الاهتمام بتوحيد المسافات واستواء السطح بشكل مثالي يسهل التنظيف ويعطي شعوراً بالفخامة.</p>
+            </div>
+            <div class="service-card bg-white p-5 rounded-2xl text-center">
+                <div class="icon-box"><i class="fas fa-gem text-xl"></i></div>
+                <h3 class="font-bold text-md mb-2">تركيب رخام</h3>
+                <p class="text-xs text-gray-500 leading-relaxed">الرخام هو عنوان الفخامة، ونحن نتقن فن التعامل معه للأرضيات والجدران والمغاسل باحترافية تامة، لنضمن لك قصات دقيقة ولمعة مرآة استثنائية.</p>
+            </div>
+            <div class="service-card bg-white p-5 rounded-2xl text-center">
+                <div class="icon-box"><i class="fas fa-home text-xl"></i></div>
+                <h3 class="font-bold text-md mb-2">تركيب سيراميك للفلل</h3>
+                <p class="text-xs text-gray-500 leading-relaxed">نوفر طاقم عمل متخصص لتنفيذ المساحات الشاسعة في الفلل والقصور بسرعة وإتقان، مع تنسيق كامل للألوان والديكورات بما يتناسب مع ذوقك الرفيع.</p>
+            </div>
+            <div class="service-card bg-white p-5 rounded-2xl text-center">
+                <div class="icon-box"><i class="fas fa-th text-xl"></i></div>
+                <h3 class="font-bold text-md mb-2">تركيب بلاط</h3>
+                <p class="text-xs text-gray-500 leading-relaxed">تركيب كافة أنواع البلاط للمخازن والمساحات التجارية بأسعار تنافسية، مع التركيز على قوة التحمل والصلابة لضمان أداء وظيفي ممتاز يدوم طويلاً.</p>
+            </div>
+            <div class="service-card bg-white p-5 rounded-2xl text-center">
+                <div class="icon-box"><i class="fas fa-square-full text-xl"></i></div>
+                <h3 class="font-bold text-md mb-2">تركيب بروسلان</h3>
+                <p class="text-xs text-gray-500 leading-relaxed">استخدام أحدث تقنيات القص والتركيب للبورسلان لضمان عدم التطبيل أو الانفصال، مع ترويبة احترافية تمنع ظهور الفراغات وتعطي شكلاً جمالياً باهراً.</p>
+            </div>
+            <div class="service-card bg-white p-5 rounded-2xl text-center">
+                <div class="icon-box"><i class="fas fa-archway text-xl"></i></div>
+                <h3 class="font-bold text-md mb-2">تركيب واجهات رخام</h3>
+                <p class="text-xs text-gray-500 leading-relaxed">تركيب الواجهات بأساليب التثبيت الميكانيكي والعادي بأعلى درجات الأمان، لتبرز فخامة منزلك وتصمد أمام كافة الظروف الجوية القاسية في الرياض.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="why-us" class="py-12 bg-gray-100 px-6">
+        <h2 class="text-xl font-bold text-center mb-8">لماذا تختار مبلط حمامات بالرياض؟</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl mx-auto">
+            <div class="bg-white p-5 rounded-xl border-r-4 border-[#a8806a] flex items-center shadow-sm">
+                <i class="fas fa-award text-2xl text-[#a8806a] ml-4"></i>
+                <p class="text-sm font-bold">دقة وإتقان العمل في أدق التفاصيل</p>
+            </div>
+            <div class="bg-white p-5 rounded-xl border-r-4 border-[#a8806a] flex items-center shadow-sm">
+                <i class="fas fa-user-clock text-2xl text-[#a8806a] ml-4"></i>
+                <p class="text-sm font-bold">الالتزام التام بالمواعيد المتفق عليها</p>
+            </div>
+            <div class="bg-white p-5 rounded-xl border-r-4 border-[#a8806a] flex items-center shadow-sm">
+                <i class="fas fa-hand-holding-usd text-2xl text-[#a8806a] ml-4"></i>
+                <p class="text-sm font-bold">أسعار تنافسية تناسب كافة الميزانيات</p>
+            </div>
+            <div class="bg-white p-5 rounded-xl border-r-4 border-[#a8806a] flex items-center shadow-sm">
+                <i class="fas fa-shield-virus text-2xl text-[#a8806a] ml-4"></i>
+                <p class="text-sm font-bold">ضمان حقيقي وشامل ما بعد التنفيذ</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-12 px-6 bg-white">
+        <h2 class="text-xl font-bold text-center mb-10">تواصل معنا</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 container mx-auto">
+            <div class="text-center md:text-right">
+                <div class="mb-5">
+                    <p class="text-lg font-bold"><i class="fas fa-mobile-alt ml-2 text-[#a8806a]"></i> 0546562621</p>
+                    <p class="text-gray-400 text-sm">info@moblet-hmamat.com</p>
+                </div>
+                <div class="flex justify-center md:justify-start gap-5 text-2xl text-[#a8806a]">
+                    <a href="https://www.facebook.com/share/1B2XdWysYA/" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/moblethamamat" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.threads.com/@moblethamamat" target="_blank"><i class="fab fa-threads"></i></a>
+                </div>
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-inner">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d123556.1875384452!2d46.75862636875001!3d24.7644144!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2efd5b5769bb1b%3A0xf4e9dc5a53f6addd!2z2YXYqNmE2Lcg2K3Zhdin2YXYp9iq!5e1!3m2!1sar!2ssa!4v1772320023937!5m2!1sar!2ssa" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white py-8 text-center pb-28 text-sm">
+        <p>كافة الحقوق محفوظة لدى/ مبلط حمامات ٢٠٢٧ ©</p>
+    </footer>
+
+    <a href="https://wa.me/966546562621" target="_blank" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <div class="bottom-nav">
+        <a href="#hero" class="flex flex-col items-center text-[#a8806a]">
+            <i class="fas fa-home text-lg"></i><span class="text-[10px]">الرئيسية</span>
+        </a>
+        <a href="#services" class="flex flex-col items-center text-gray-400">
+            <i class="fas fa-tools text-lg"></i><span class="text-[10px]">خدماتنا</span>
+        </a>
+        <a href="#why-us" class="flex flex-col items-center text-gray-400">
+            <i class="fas fa-star text-lg"></i><span class="text-[10px]">لماذا نحن</span>
+        </a>
+        <a href="#contact" class="flex flex-col items-center text-gray-400">
+            <i class="fas fa-comments text-lg"></i><span class="text-[10px]">تواصل</span>
+        </a>
+    </div>
+
+    <script>
+        // إخفاء التحميل بعد 3 ثوانٍ
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                loader.style.transition = 'opacity 0.6s ease';
+                loader.style.opacity = '0';
+                setTimeout(() => loader.style.display = 'none', 600);
+            }, 3000);
+        });
+
+        // تحكم القائمة الجانبية
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            if (sidebar.classList.contains('active')) {
+                sidebar.classList.remove('active');
+                overlay.style.display = 'none';
+            } else {
+                sidebar.classList.add('active');
+                overlay.style.display = 'block';
+            }
+        }
+
+        // تأثير الهيدر عند السكرول
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            header.classList.toggle('scrolled', window.scrollY > 30);
+        });
+    </script>
+</body>
+</html>
