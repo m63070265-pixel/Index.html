@@ -57,9 +57,9 @@
         /* البار السفلي */
         .bottom-nav {
             position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%);
-            width: 92%; max-width: 450px; background: white;
+            width: 95%; max-width: 500px; background: white;
             border: 1px solid var(--main-color); border-radius: 50px;
-            display: flex; justify-content: space-around; padding: 10px;
+            display: flex; justify-content: space-around; padding: 10px 5px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.1); z-index: 998;
         }
 
@@ -106,6 +106,8 @@
             <a href="#hero" onclick="toggleMenu()" class="hover:text-[#a8806a]">الرئيسية</a>
             <a href="#services" onclick="toggleMenu()" class="hover:text-[#a8806a]">خدماتنا</a>
             <a href="#why-us" onclick="toggleMenu()" class="hover:text-[#a8806a]">لماذا تختارنا</a>
+            <a href="#gallery" onclick="toggleMenu()" class="hover:text-[#a8806a]">معرض أعمالنا</a>
+            <a href="https://moblet-hamamat.com/" target="_blank" onclick="toggleMenu()" class="hover:text-[#a8806a]">المدونة</a>
             <a href="#contact" onclick="toggleMenu()" class="hover:text-[#a8806a]">تواصل معنا</a>
         </nav>
     </div>
@@ -205,7 +207,15 @@
         </div>
     </section>
 
-    <section id="contact" class="py-12 px-6 bg-white">
+    <section id="gallery" class="py-12 bg-white px-6">
+        <h2 class="text-xl font-bold text-center mb-8" style="color: var(--main-color);">معرض أعمالنا</h2>
+        <div class="text-center text-gray-500 text-sm max-w-2xl mx-auto p-10 border-2 border-dashed border-gray-300 rounded-2xl">
+            <i class="fas fa-images text-4xl text-gray-300 mb-3"></i>
+            <p>المساحة مخصصة لرفع صور أعمالك المميزة قريباً...</p>
+        </div>
+        </section>
+
+    <section id="contact" class="py-12 px-6 bg-gray-50">
         <h2 class="text-xl font-bold text-center mb-10">تواصل معنا</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 container mx-auto">
             <div class="text-center md:text-right">
@@ -239,6 +249,12 @@
         </a>
         <a href="#services" class="flex flex-col items-center text-gray-400">
             <i class="fas fa-tools text-lg"></i><span class="text-[10px]">خدماتنا</span>
+        </a>
+        <a href="#gallery" class="flex flex-col items-center text-gray-400">
+            <i class="fas fa-images text-lg"></i><span class="text-[10px]">أعمالنا</span>
+        </a>
+        <a href="https://moblet-hamamat.com/" target="_blank" class="flex flex-col items-center text-gray-400">
+            <i class="fab fa-blogger text-lg"></i><span class="text-[10px]">المدونة</span>
         </a>
         <a href="#why-us" class="flex flex-col items-center text-gray-400">
             <i class="fas fa-star text-lg"></i><span class="text-[10px]">لماذا نحن</span>
