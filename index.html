@@ -14,7 +14,7 @@
 
     <style>
         :root { --main-color: #a8806a; }
-        body { font-family: 'Cairo', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
+        body { font-family: 'Cairo', sans-serif; overflow-x: hidden; scroll-behavior: smooth; transition: background-color 0.4s, color 0.4s; }
         
         /* شاشة التحميل المطورة - بدون إطار وبأيقونة أكبر */
         #loader {
@@ -61,6 +61,7 @@
             border: 1px solid var(--main-color); border-radius: 50px;
             display: flex; justify-content: space-around; padding: 10px 5px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.1); z-index: 998;
+            transition: background-color 0.4s, border-color 0.4s;
         }
 
         /* واتساب عائم صغير على اليسار */
@@ -73,6 +74,22 @@
             z-index: 999; animation: bounce 2s infinite;
         }
 
+        /* اتصال عائم صغير على اليمين */
+        .call-float {
+            position: fixed; bottom: 90px; right: 20px;
+            width: 50px; height: 50px; background: #007bff;
+            color: white; border-radius: 50%; display: flex;
+            align-items: center; justify-content: center;
+            font-size: 22px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 999; animation: pulse-call 2s infinite;
+        }
+
+        @keyframes pulse-call {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(0, 123, 255, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 123, 255, 0); }
+        }
+
         /* توقيع إسلام الشيخ */
         .designer-tag {
             border: 1.5px solid #d4af37; border-radius: 30px; padding: 4px 18px;
@@ -80,6 +97,21 @@
             background: linear-gradient(145deg, #ffffff, #f9f9f9);
             box-shadow: 0 3px 10px rgba(0,0,0,0.05);
         }
+
+        /* --- تنسيقات الوضع الليلي (Dark Mode) --- */
+        body.dark-mode { background-color: #121212 !important; color: #f1f1f1 !important; }
+        body.dark-mode .bg-white, body.dark-mode .bg-gray-50, body.dark-mode .bg-gray-100 { background-color: #1e1e1e !important; color: #f1f1f1 !important; }
+        body.dark-mode .text-gray-800 { color: #ffffff !important; }
+        body.dark-mode .text-gray-500 { color: #b3b3b3 !important; }
+        body.dark-mode header { background: rgba(30, 30, 30, 0.95) !important; }
+        body.dark-mode #sidebar { background: #1e1e1e !important; }
+        body.dark-mode .service-card { border-color: #333 !important; }
+        body.dark-mode .service-card:hover { border-color: var(--main-color) !important; background-color: #252525 !important; }
+        body.dark-mode .bottom-nav { background: #1e1e1e !important; border-color: var(--main-color) !important; }
+        body.dark-mode .bottom-nav a.text-gray-400 { color: #888 !important; }
+        body.dark-mode .bottom-nav a.text-[#a8806a] { color: var(--main-color) !important; }
+        body.dark-mode #gallery div.border-gray-300 { border-color: #444 !important; background-color: #252525; }
+        body.dark-mode #loader { background-color: #121212 !important; }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -87,7 +119,7 @@
     <div id="loader">
         <div class="text-center">
             <img src="https://imgg.io/images/2026/03/04/ab8cf251dfb9d7de52b58890415dbb7c.png" class="w-36 mb-4 mx-auto animate__animated animate__pulse animate__infinite" alt="Logo">
-            <p class="text-gray-500 font-semibold">جاري تحميل الموقع ...</p>
+            <p class="text-gray-500 font-semibold" id="loader-text">جاري تحميل الموقع ...</p>
         </div>
         <div class="absolute bottom-8">
             <a href="https://wa.me/966547194788" target="_blank" class="designer-tag text-xs">
@@ -103,18 +135,18 @@
             <i class="fas fa-times text-2xl cursor-pointer" onclick="toggleMenu()"></i>
         </div>
         <nav class="flex flex-col space-y-6 text-lg font-bold">
-            <a href="#hero" onclick="toggleMenu()" class="hover:text-[#a8806a]">الرئيسية</a>
-            <a href="#services" onclick="toggleMenu()" class="hover:text-[#a8806a]">خدماتنا</a>
-            <a href="#why-us" onclick="toggleMenu()" class="hover:text-[#a8806a]">لماذا تختارنا</a>
-            <a href="#gallery" onclick="toggleMenu()" class="hover:text-[#a8806a]">معرض أعمالنا</a>
-            <a href="https://moblet-hamamat.blogspot.com/" target="_blank" onclick="toggleMenu()" class="hover:text-[#a8806a]">المدونة</a>
-            <a href="#contact" onclick="toggleMenu()" class="hover:text-[#a8806a]">تواصل معنا</a>
+            <a href="#hero" onclick="toggleMenu()" class="hover:text-[#a8806a] transition-colors">الرئيسية</a>
+            <a href="#services" onclick="toggleMenu()" class="hover:text-[#a8806a] transition-colors">خدماتنا</a>
+            <a href="#why-us" onclick="toggleMenu()" class="hover:text-[#a8806a] transition-colors">لماذا تختارنا</a>
+            <a href="#gallery" onclick="toggleMenu()" class="hover:text-[#a8806a] transition-colors">معرض أعمالنا</a>
+            <a href="https://moblet-hamamat.blogspot.com/" target="_blank" onclick="toggleMenu()" class="hover:text-[#a8806a] transition-colors">المدونة</a>
+            <a href="#contact" onclick="toggleMenu()" class="hover:text-[#a8806a] transition-colors">تواصل معنا</a>
         </nav>
     </div>
 
     <header class="fixed top-0 w-full z-50 shadow-sm px-6 py-4 flex justify-between items-center">
         <div>
-            <a href="tel:0546562621" class="w-9 h-9 flex items-center justify-center rounded-full bg-[#a8806a] text-white shadow-md">
+            <a href="tel:0546562621" class="w-9 h-9 flex items-center justify-center rounded-full bg-[#a8806a] text-white shadow-md hover:scale-110 transition-transform">
                 <i class="fas fa-phone-alt"></i>
             </a>
         </div>
@@ -122,8 +154,9 @@
             <img src="https://imgg.io/images/2026/03/04/ab8cf251dfb9d7de52b58890415dbb7c.png" 
                  class="h-12 mx-auto animate__animated animate__fadeIn" alt="Logo">
         </div>
-        <div class="text-xl text-[#a8806a] cursor-pointer" onclick="toggleMenu()">
-            <i class="fas fa-bars"></i>
+        <div class="flex items-center gap-4 text-xl text-[#a8806a]">
+            <i class="fas fa-moon cursor-pointer hover:scale-110 transition-transform" id="theme-toggle" onclick="toggleTheme()"></i>
+            <i class="fas fa-bars cursor-pointer hover:scale-110 transition-transform" onclick="toggleMenu()"></i>
         </div>
     </header>
 
@@ -190,26 +223,26 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl mx-auto">
             <div class="bg-white p-5 rounded-xl border-r-4 border-[#a8806a] flex items-center shadow-sm">
                 <i class="fas fa-award text-2xl text-[#a8806a] ml-4"></i>
-                <p class="text-sm font-bold">دقة وإتقان العمل في أدق التفاصيل</p>
+                <p class="text-sm font-bold text-gray-800">دقة وإتقان العمل في أدق التفاصيل</p>
             </div>
             <div class="bg-white p-5 rounded-xl border-r-4 border-[#a8806a] flex items-center shadow-sm">
                 <i class="fas fa-user-clock text-2xl text-[#a8806a] ml-4"></i>
-                <p class="text-sm font-bold">الالتزام التام بالمواعيد المتفق عليها</p>
+                <p class="text-sm font-bold text-gray-800">الالتزام التام بالمواعيد المتفق عليها</p>
             </div>
             <div class="bg-white p-5 rounded-xl border-r-4 border-[#a8806a] flex items-center shadow-sm">
                 <i class="fas fa-hand-holding-usd text-2xl text-[#a8806a] ml-4"></i>
-                <p class="text-sm font-bold">أسعار تنافسية تناسب كافة الميزانيات</p>
+                <p class="text-sm font-bold text-gray-800">أسعار تنافسية تناسب كافة الميزانيات</p>
             </div>
             <div class="bg-white p-5 rounded-xl border-r-4 border-[#a8806a] flex items-center shadow-sm">
                 <i class="fas fa-shield-virus text-2xl text-[#a8806a] ml-4"></i>
-                <p class="text-sm font-bold">ضمان حقيقي وشامل ما بعد التنفيذ</p>
+                <p class="text-sm font-bold text-gray-800">ضمان حقيقي وشامل ما بعد التنفيذ</p>
             </div>
         </div>
     </section>
 
     <section id="gallery" class="py-12 bg-white px-6">
         <h2 class="text-xl font-bold text-center mb-8" style="color: var(--main-color);">معرض أعمالنا</h2>
-        <div class="text-center text-gray-500 text-sm max-w-2xl mx-auto p-10 border-2 border-dashed border-gray-300 rounded-2xl">
+        <div class="text-center text-gray-500 text-sm max-w-2xl mx-auto p-10 border-2 border-dashed border-gray-300 rounded-2xl transition-colors">
             <i class="fas fa-images text-4xl text-gray-300 mb-3"></i>
             <p>المساحة مخصصة لرفع صور أعمالك المميزة قريباً...</p>
         </div>
@@ -220,13 +253,13 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 container mx-auto">
             <div class="text-center md:text-right">
                 <div class="mb-5">
-                    <p class="text-lg font-bold"><i class="fas fa-mobile-alt ml-2 text-[#a8806a]"></i> 0546562621</p>
-                    <p class="text-gray-400 text-sm">info@moblet-hmamat.com</p>
+                    <p class="text-lg font-bold text-gray-800"><i class="fas fa-mobile-alt ml-2 text-[#a8806a]"></i> 0546562621</p>
+                    <p class="text-gray-400 text-sm mt-2">info@moblet-hmamat.com</p>
                 </div>
                 <div class="flex justify-center md:justify-start gap-5 text-2xl text-[#a8806a]">
-                    <a href="https://www.facebook.com/share/1B2XdWysYA/" target="_blank"><i class="fab fa-facebook"></i></a>
-                    <a href="https://www.instagram.com/moblethamamat" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.threads.com/@moblethamamat" target="_blank"><i class="fab fa-threads"></i></a>
+                    <a href="https://www.facebook.com/share/1B2XdWysYA/" target="_blank" class="hover:text-blue-600 transition-colors"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/moblethamamat" target="_blank" class="hover:text-pink-600 transition-colors"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.threads.com/@moblethamamat" target="_blank" class="hover:text-black dark:hover:text-white transition-colors"><i class="fab fa-threads"></i></a>
                 </div>
             </div>
             <div class="rounded-2xl overflow-hidden shadow-inner">
@@ -239,32 +272,62 @@
         <p>كافة الحقوق محفوظة لدى/ مبلط حمامات ٢٠٢٧ ©</p>
     </footer>
 
+    <a href="tel:0546562621" class="call-float">
+        <i class="fas fa-phone-alt"></i>
+    </a>
+
     <a href="https://wa.me/966546562621" target="_blank" class="whatsapp-float">
         <i class="fab fa-whatsapp"></i>
     </a>
 
     <div class="bottom-nav">
         <a href="#hero" class="flex flex-col items-center text-[#a8806a]">
-            <i class="fas fa-home text-lg"></i><span class="text-[10px]">الرئيسية</span>
+            <i class="fas fa-home text-lg mb-1"></i><span class="text-[10px]">الرئيسية</span>
         </a>
-        <a href="#services" class="flex flex-col items-center text-gray-400">
-            <i class="fas fa-tools text-lg"></i><span class="text-[10px]">خدماتنا</span>
+        <a href="#services" class="flex flex-col items-center text-gray-400 hover:text-[#a8806a] transition-colors">
+            <i class="fas fa-tools text-lg mb-1"></i><span class="text-[10px]">خدماتنا</span>
         </a>
-        <a href="#gallery" class="flex flex-col items-center text-gray-400">
-            <i class="fas fa-images text-lg"></i><span class="text-[10px]">أعمالنا</span>
+        <a href="#gallery" class="flex flex-col items-center text-gray-400 hover:text-[#a8806a] transition-colors">
+            <i class="fas fa-images text-lg mb-1"></i><span class="text-[10px]">أعمالنا</span>
         </a>
-        <a href="https://moblet-hamamat.blogspot.com/" target="_blank" class="flex flex-col items-center text-gray-400">
-            <i class="fab fa-blogger text-lg"></i><span class="text-[10px]">المدونة</span>
+        <a href="https://moblet-hamamat.blogspot.com/" target="_blank" class="flex flex-col items-center text-gray-400 hover:text-[#a8806a] transition-colors">
+            <i class="fab fa-blogger text-lg mb-1"></i><span class="text-[10px]">المدونة</span>
         </a>
-        <a href="#why-us" class="flex flex-col items-center text-gray-400">
-            <i class="fas fa-star text-lg"></i><span class="text-[10px]">لماذا نحن</span>
+        <a href="#why-us" class="flex flex-col items-center text-gray-400 hover:text-[#a8806a] transition-colors">
+            <i class="fas fa-star text-lg mb-1"></i><span class="text-[10px]">لماذا نحن</span>
         </a>
-        <a href="#contact" class="flex flex-col items-center text-gray-400">
-            <i class="fas fa-comments text-lg"></i><span class="text-[10px]">تواصل</span>
+        <a href="#contact" class="flex flex-col items-center text-gray-400 hover:text-[#a8806a] transition-colors">
+            <i class="fas fa-comments text-lg mb-1"></i><span class="text-[10px]">تواصل</span>
         </a>
     </div>
 
     <script>
+        // التحقق من حالة الوضع الليلي المحفوظة في المتصفح عند فتح الموقع
+        window.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark-mode');
+                const themeIcon = document.getElementById('theme-toggle');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+        });
+
+        // دالة تبديل الوضع الليلي/النهاري
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const themeIcon = document.getElementById('theme-toggle');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
         // إخفاء التحميل بعد 3 ثوانٍ
         window.addEventListener('load', () => {
             setTimeout(() => {
